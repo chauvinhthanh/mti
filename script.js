@@ -1,4 +1,6 @@
-const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSM5Xb2nu3kkAb-EHG5Azga0_VCxOcEy2KVQObsIWRCVjjgCSG53uBjZ3YEbLxK01qnTW79_b6Jw7MI/pubhtml'; // Thay thế bằng liên kết API của bạn
+const sheetId = '1Kz0GxLahLLRO6YrAGtWtqARSZnqS3-heRJ41Pry-gkM/'; // Thay thế bằng ID của Google Sheet
+const apiKey = 'AIzaSyAidbBXgq1jO9sPDX-kLm2atL_z6ANLC6w'; // Thay thế bằng API key của bạn
+const sheetRange = 'Sheet1!A1:D'; // Thay thế bằng range của bạn
 
 document.getElementById('search').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
@@ -8,10 +10,12 @@ document.getElementById('search').addEventListener('keypress', function (e) {
 });
 
 function fetchData(query) {
-    fetch(sheetUrl)
-        .then(response => response.text())
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheetRange}?key=${apiKey}`;
+    
+    fetch(url)
+        .then(response => response.json())
         .then(data => {
-            const rows = data.split('\n').map(row => row.split(','));
+            const rows = data.values;
             const resultDiv = document.getElementById('result');
             resultDiv.innerHTML = ''; // Xóa kết quả cũ
 
