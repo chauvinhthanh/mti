@@ -30,4 +30,6 @@ function fetchData(query) {
         .catch(error => {
             console.error('Lỗi:', error);
         });
+    // Xóa dữ liệu nhập liệu
+    document.getElementById('query').value = '';
 }
